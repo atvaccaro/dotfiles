@@ -5,7 +5,7 @@ export ZSH=/Users/atvaccaro/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="agnoster"
+ZSH_THEME="seeker"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -49,7 +49,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git colored-man colorize github virtualenv pip python brew osx zsh-syntax-highlighting)
+plugins=(git colored-man colorize github virtualenv pip python brew osx zsh-syntax-highlighting pyenv)
 
 # User configuration
 
@@ -82,3 +82,54 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias utdcs='ssh atv130330@cs1.utdallas.edu'
+alias ec2='ssh -i ~/.ssh/serverPair.pem ec2-user@ec2-35-161-38-75.us-west-2.compute.amazonaws.com'
+alias nwyc-mysql='mysql -uroot -pdbr00t123 -hnwycmobile.cetxajhlomvy.us-east-1.rds.amazonaws.com $1'
+alias teamspeak='ssh teamspeak3-user@64.137.251.42'
+alias slacker='ssh slacker@45.62.239.60'
+
+#Other configs
+export CVNODE=andrew
+export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib:/usr/lib # fixes some issues with cairo
+export DYLD_LIBRARY_PATH=/usr/local/mysql/lib
+export PATH=$PATH:/usr/local/mysql/bin
+
+fancy-ctrl-z () {
+ if [[ $#BUFFER -eq 0 ]]; then
+   BUFFER="fg"
+   zle accept-line
+ else
+   zle push-input
+   zle clear-screen
+ fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
+
+# Load in the git branch prompt script
+#source ~/.git-prompt.sh
+# Load in the git autocomplete
+#if [ -f ~/.git-completion.bash ]; then
+          #. ~/.git-completion.bash
+  #fi
+#__git_complete go _git_checkout
+#__git_complete gh _git_log
+#__git_complete gd _git_diff
+
+# Git Aliases
+alias gs='git status '
+alias ga='git add '
+alias gb='git branch '
+alias gc='git commit'
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias gh='git hist'
+alias go='git checkout '
+alias gr='git reset HEAD '
+alias gk='gitk --all&'
+alias gx='gitx --all'
+alias gbl="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
+
+# added by travis gem
+[ -f /Users/atvaccaro/.travis/travis.sh ] && source /Users/atvaccaro/.travis/travis.sh
+export PATH="/usr/local/bin:$PATH"
